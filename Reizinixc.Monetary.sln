@@ -3,9 +3,35 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reizinixc.Monetary", "src\Reizinixc.Monetary\Reizinixc.Monetary.csproj", "{CB96F77E-2F20-4A9B-87C8-D400FE638F91}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D24C48BE-CFF8-47EF-989E-22187CD793F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{469E86F8-E06D-48A5-A386-249B56F6AA71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reizinixc.Monetary.Tests", "test\Reizinixc.Monetary.Tests\Reizinixc.Monetary.Tests.csproj", "{13337F04-2578-4D83-B90F-8FFAD705B808}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CB96F77E-2F20-4A9B-87C8-D400FE638F91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB96F77E-2F20-4A9B-87C8-D400FE638F91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB96F77E-2F20-4A9B-87C8-D400FE638F91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB96F77E-2F20-4A9B-87C8-D400FE638F91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13337F04-2578-4D83-B90F-8FFAD705B808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13337F04-2578-4D83-B90F-8FFAD705B808}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13337F04-2578-4D83-B90F-8FFAD705B808}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13337F04-2578-4D83-B90F-8FFAD705B808}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CB96F77E-2F20-4A9B-87C8-D400FE638F91} = {D24C48BE-CFF8-47EF-989E-22187CD793F0}
+		{13337F04-2578-4D83-B90F-8FFAD705B808} = {469E86F8-E06D-48A5-A386-249B56F6AA71}
 	EndGlobalSection
 	GlobalSection(CodealikeProperties) = postSolution
 		SolutionGuid = 300f23b0-4402-4610-9053-7e14cf56ece8
