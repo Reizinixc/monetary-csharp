@@ -58,6 +58,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Currency\CurrencyTests.Builder.cs" />
+    <Compile Include="Currency\CurrencyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rounding\AwayFromZeroRoundingTypeTests.cs" />
     <Compile Include="Rounding\RoundingTypeTests.cs" />
