@@ -1,11 +1,13 @@
 ﻿namespace Reizinixc.Monetary.Currency
 {
+    using System;
+
     using Reizinixc.Monetary.Rounding;
 
     /// <summary>
     /// Defines a properties and methods for accepted form of monetary.
     /// </summary>
-    public interface ICurrency
+    public interface ICurrency : IEquatable<ICurrency>
     {
         /// <summary>
         /// Gets an alphabetic code of currency defines in ISO 4217.

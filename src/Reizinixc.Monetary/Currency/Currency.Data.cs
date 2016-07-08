@@ -12,7 +12,7 @@
         /// <summary>
         /// Represents a data container of <see cref="Currency" />.
         /// </summary>
-        private class Data
+        private class Data : IEquatable<Data>
         {
             /// <summary>
             /// An alphabetic code of currency defines in ISO 4217.
@@ -166,6 +166,39 @@
                     }
 
                     this.symbol = value;
+                }
+            }
+
+            /// <inheritdoc />
+            public bool Equals(Data other)
+            {
+                if (object.ReferenceEquals(this, other))
+                {
+                    return true;
+                }
+
+                return !object.ReferenceEquals(null, other)
+                    && string.Equals(
+                        this.alphabeticCode,
+                        other.alphabeticCode,
+                        StringComparison.InvariantCultureIgnoreCase)
+                    && this.decimals == other.decimals
+                    && this.roundingType.Equals(other.roundingType)
+                    && this.NumericCode == other.NumericCode;
+            }
+
+            /// <inheritdoc />
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    int hashCode = StringComparer.InvariantCultureIgnoreCase.GetHashCode(this.alphabeticCode);
+
+                    hashCode = (hashCode * 397) ^ this.decimals;
+                    hashCode = (hashCode * 397) ^ this.roundingType.GetHashCode();
+                    hashCode = (hashCode * 397) ^ (int)this.NumericCode;
+
+                    return hashCode;
                 }
             }
         }

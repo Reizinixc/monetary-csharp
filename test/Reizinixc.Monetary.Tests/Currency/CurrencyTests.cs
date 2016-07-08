@@ -139,6 +139,114 @@
             }
         }
 
+        public new sealed class Equals
+        {
+            [Test]
+            public void ReturnFalseForNullInstance()
+            {
+                // Arrange
+                var currency = new Currency("TTD", 2, "Test", 999999u, Mock.Of<IRoundingType>(), "T");
+
+                // Act + Assert
+                Assert.That(currency.Equals(null as object), Is.False);
+                Assert.That(currency.Equals(null as ICurrency), Is.False);
+            }
+
+            [Test]
+            public void ReturnFalseForDifferentInstanceType()
+            {
+                // Arrange
+                var currency = new Currency("TTD", 2, "Test", 999999u, Mock.Of<IRoundingType>(), "T");
+
+                // Act + Assert
+                Assert.That(currency.Equals(new object()), Is.False);
+            }
+
+            [Test]
+            [Pairwise]
+            public void ReturnTrueForSameCurrencyValue(
+                [ValueSource(typeof(CurrencyTests), nameof(AlphabeticCodes))] string alphabeticCode,
+                [ValueSource(typeof(CurrencyTests), nameof(ValidDecimals))] int decimals,
+                [ValueSource(typeof(CurrencyTests), nameof(EnglishNames))] string englishName,
+                [ValueSource(typeof(CurrencyTests), nameof(NumericCodes))] uint numericCode,
+                [ValueSource(typeof(CurrencyTests), nameof(Symbols))] string symbol)
+            {
+                // Arrange
+                var currency = Mock.Of<ICurrency>(it =>
+                    it.AlphabeticCode == alphabeticCode
+                        && it.Decimals == decimals
+                        && it.EnglishName == englishName
+                        && it.NumericCode == numericCode
+                        && it.RoundingType == RoundingType.AwayFromZero
+                        && it.Symbol == symbol);
+                var anotherCurrency = new Currency(currency);
+
+                // Act + Assert
+                Assert.That(anotherCurrency.Equals(currency as object), Is.True);
+                Assert.That(anotherCurrency.Equals(currency as ICurrency), Is.True);
+            }
+
+            [Test]
+            [Pairwise]
+            public void ReturnTrueForTransitiveSameCurrencyValue(
+                [ValueSource(typeof(CurrencyTests), nameof(AlphabeticCodes))] string alphabeticCode,
+                [ValueSource(typeof(CurrencyTests), nameof(ValidDecimals))] int decimals,
+                [ValueSource(typeof(CurrencyTests), nameof(EnglishNames))] string englishName,
+                [ValueSource(typeof(CurrencyTests), nameof(NumericCodes))] uint numericCode,
+                [ValueSource(typeof(CurrencyTests), nameof(Symbols))] string symbol)
+            {
+                // Arrange
+                var currency = new Currency(alphabeticCode, decimals, englishName, numericCode, RoundingType.AwayFromZero, symbol);
+                var currency1 = new Currency(alphabeticCode, decimals, englishName, numericCode, RoundingType.AwayFromZero, symbol);
+                var anotherCurrency = new Currency(currency1);
+
+                // Act + Assert
+                Assert.That(currency.Equals(anotherCurrency as object), Is.True);
+                Assert.That(currency.Equals(anotherCurrency as ICurrency), Is.True);
+                Assert.That(currency1.Equals(anotherCurrency as object), Is.True);
+                Assert.That(currency1.Equals(anotherCurrency as ICurrency), Is.True);
+            }
+
+            [Test]
+            [Pairwise]
+            public void ReturnTrueForSameInstance(
+                [ValueSource(typeof(CurrencyTests), nameof(AlphabeticCodes))] string alphabeticCode,
+                [ValueSource(typeof(CurrencyTests), nameof(ValidDecimals))] int decimals,
+                [ValueSource(typeof(CurrencyTests), nameof(EnglishNames))] string englishName,
+                [ValueSource(typeof(CurrencyTests), nameof(NumericCodes))] uint numericCode,
+                [ValueSource(typeof(CurrencyTests), nameof(RoundingTypes))] IRoundingType roundingType,
+                [ValueSource(typeof(CurrencyTests), nameof(Symbols))] string symbol)
+            {
+                // Arrange
+                var currency = new Currency(alphabeticCode, decimals, englishName, numericCode, roundingType, symbol);
+
+                // Act + Assert
+                Assert.That(currency.Equals(currency as object), Is.True);
+                Assert.That(currency.Equals(currency as ICurrency), Is.True);
+            }
+        }
+
+        public sealed class GetHashCode
+        {
+            [Test]
+            [Pairwise]
+            public void ReturnSameHashCodeForSameCurrencyValue(
+                [ValueSource(typeof(CurrencyTests), nameof(AlphabeticCodes))] string alphabeticCode,
+                [ValueSource(typeof(CurrencyTests), nameof(ValidDecimals))] int decimals,
+                [ValueSource(typeof(CurrencyTests), nameof(EnglishNames))] string englishName,
+                [ValueSource(typeof(CurrencyTests), nameof(NumericCodes))] uint numericCode,
+                [ValueSource(typeof(CurrencyTests), nameof(RoundingTypes))] IRoundingType roundingType,
+                [ValueSource(typeof(CurrencyTests), nameof(Symbols))] string symbol)
+            {
+                // Arrange
+                var currency = new Currency(alphabeticCode, decimals, englishName, numericCode, roundingType, symbol);
+                var anotherCurrency = new Currency(alphabeticCode, decimals, englishName, numericCode, roundingType, symbol);
+
+                // Act + Assert
+                Assert.That(currency.GetHashCode(), Is.EqualTo(anotherCurrency.GetHashCode()));
+            }
+        }
+
         public sealed class Round
         {
             [Test]

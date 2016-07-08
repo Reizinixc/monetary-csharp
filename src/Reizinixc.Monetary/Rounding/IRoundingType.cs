@@ -1,9 +1,11 @@
 ﻿namespace Reizinixc.Monetary.Rounding
 {
+    using System;
+
     /// <summary>
     /// Defines method to round values using number of decimal.
     /// </summary>
-    public interface IRoundingType
+    public interface IRoundingType : IEquatable<IRoundingType>
     {
         /// <summary>
         /// Rounds a value to a specified value of fractional digits.

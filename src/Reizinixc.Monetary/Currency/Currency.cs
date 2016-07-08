@@ -1,5 +1,7 @@
 ﻿namespace Reizinixc.Monetary.Currency
 {
+    using System;
+
     using Reizinixc.Monetary.Rounding;
 
     /// <summary>
@@ -95,6 +97,45 @@
 
         /// <inheritdoc />
         public string Symbol => this.data.Symbol;
+
+        /// <inheritdoc />
+        public bool Equals(ICurrency other)
+        {
+            if (object.ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            var otherCurrency = other as Currency;
+
+            if (otherCurrency != null)
+            {
+                return this.data.Equals(otherCurrency.data);
+            }
+
+            return string.Equals(this.AlphabeticCode, other.AlphabeticCode, StringComparison.InvariantCultureIgnoreCase)
+                && this.Decimals == other.Decimals
+                && this.RoundingType.Equals(other.RoundingType)
+                && string.Equals(this.Symbol, other.Symbol, StringComparison.InvariantCultureIgnoreCase)
+                && this.NumericCode == other.NumericCode;
+        }
+
+        /// <inheritdoc />
+        public override bool Equals(object obj)
+        {
+            return this.Equals(obj as ICurrency);
+        }
+
+        /// <inheritdoc />
+        public override int GetHashCode()
+        {
+            return this.data.GetHashCode();
+        }
 
         /// <inheritdoc />
         public decimal Round(decimal value)
