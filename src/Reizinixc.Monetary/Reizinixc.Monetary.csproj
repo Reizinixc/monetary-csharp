@@ -50,6 +50,9 @@
     <Compile Include="Currency\Currency.cs" />
     <Compile Include="Currency\Currency.Data.cs" />
     <Compile Include="Currency\ICurrency.cs" />
+    <Compile Include="Currency\IExchangeable.cs" />
+    <Compile Include="Currency\ExchangeableCurrency.cs" />
+    <Compile Include="Currency\IExchangeableCurrency.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rounding\AwayFromZeroRoundingType.cs" />
     <Compile Include="Rounding\IRoundingType.cs" />
